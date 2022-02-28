@@ -101,8 +101,12 @@ render: -> """
 
 update: (output, domEl) ->
 
-    today = new Date
-    dd = today.getDate()
+    date = new Date
+    dd_today = date.getDate()
+    date.setMonth(date.getMonth()+1)
+    date.setDate(0)
+    dd_end = date.getDate()
+
     content = $(domEl).find('#content')
     content.empty()
     tdclass = ['date', 'time', 'title']
@@ -121,7 +125,10 @@ update: (output, domEl) ->
         title = split_str1[2]
         display_str = [date, time, title]
 
-        switch date.match(/\d+/) - dd
+        diff = date.match(/\d+/)[0] - dd_today
+        if diff < 0
+            diff += dd_end
+        switch diff
             when 0
                 trclass = 'today'
             when 1

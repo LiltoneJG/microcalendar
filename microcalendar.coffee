@@ -35,8 +35,9 @@ LINES = 5
 
 # Fonts
 FONT_FAMILY = 'Helvetica'
-FONTSIZE = 10
 FONT_WEIGHT = 500
+FONTSIZE = 10
+LINE_HEIGHT = 10
 
 # Settings end
 ##############################
@@ -57,7 +58,7 @@ style: """
     font-size: #{FONTSIZE}px
     font-family: #{FONT_FAMILY}
     font-weight: #{FONT_WEIGHT}
-    line-height: #{FONTSIZE}px
+    line-height: #{LINE_HEIGHT}px
     color: #ccc
     background: rgba(25, 25, 25, 0.5)
     #frame

@@ -32,6 +32,7 @@ WIDTH_DAY = 45
 WIDTH_TIME = 70
 PADDING = 4
 LINES = 5
+REVERSE_ORDER = false
 
 # Fonts
 FONT_FAMILY = 'Helvetica'
@@ -65,6 +66,8 @@ style: """
         width: #{WIDTH_SUM-2*PADDING}px
         padding: #{PADDING}px
         table-layout: fixed
+        position: absolute
+        bottom: 0
     #content
         td
             padding: 0
@@ -140,6 +143,9 @@ update: (output, domEl) ->
                 trclass = 'future'
 
         tr = $('<tr>').addClass(trclass)
-        content.append(tr)
+        if !REVERSE_ORDER
+            content.append(tr)
+        else
+            content.prepend(tr)
         for i in [0..2]
             tr.append($('<td>').addClass(tdclass[i]).append(display_str[i]))

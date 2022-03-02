@@ -43,7 +43,7 @@ LINE_HEIGHT = 10
 # Settings end
 ##############################
 
-options = " -n -nc -npn -nrd -ea -iep 'datetime,title' -po 'datetime,title' -ps '/ $$ /' -b ' ' -df '" + DATE_FORMAT + "' -tf '" + TIME_FORMAT + "' "
+options = " -n -nc -npn -nrd -ea -iep 'datetime,title' -po 'datetime,title' -ps '/ $$ /' -b ' ' -df '%Y/%m/%d $$ " + DATE_FORMAT + "' -tf '" + TIME_FORMAT + "' "
 if calendarlist? and calendarlist.length > 0
     options = " -ic '" + calendarlist.join(',') + "' " + options
 
@@ -105,11 +105,8 @@ render: -> """
 
 update: (output, domEl) ->
 
-    date = new Date
-    dd_today = date.getDate()
-    date.setMonth(date.getMonth()+1)
-    date.setDate(0)
-    dd_end = date.getDate()
+    today = new Date()
+    today.setHours(0, 0, 0, 0)
 
     content = $(domEl).find('#content')
     content.empty()
@@ -120,19 +117,17 @@ update: (output, domEl) ->
 
         if index > LINES - 1
             break
-        split_str1 = line.trim().split(/ \$\$ | - /g)
-        if !split_str1[2]?
+        split_line = line.trim().split(/ \$\$ | - /g)
+        if !split_line[3]?
             continue
-        split_str2 = split_str1[0].split(' at ')
-        date = split_str2[0]
-        time = split_str2[1] + '-' + split_str1[1].replace(/(\d{1,2}).+ at /, '$1/')
-        title = split_str1[2]
+        split_start_end = split_line[1].split(' at ')
+        date = split_start_end[0]
+        time = split_start_end[1] + '-' + split_line[2].replace(/(\d{1,2}).+ at /, '$1/')
+        title = split_line[3]
         display_str = [date, time, title]
 
-        diff = date.match(/\d+/)[0] - dd_today
-        if diff < 0
-            diff += dd_end
-        switch diff
+        diff = (new Date(split_line[0]) - today) / 86400000
+        switch Math.floor(diff)
             when 0
                 trclass = 'today'
             when 1

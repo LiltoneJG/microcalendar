@@ -43,7 +43,7 @@ LINE_HEIGHT = 10
 # Settings end
 ##############################
 
-options = " -n -nc -npn -nrd -ea -iep 'datetime,title' -po 'datetime,title' -ps '/ $$ /' -b ' ' -df '%Y/%m/%d $$ " + DATE_FORMAT + "' -tf '" + TIME_FORMAT + "' "
+options = " -n -nc -npn -nrd -ea -iep 'datetime,title' -po 'datetime,title' -ps '/ $$ /' -b ' ' -df '%Y/%m/%d ## " + DATE_FORMAT + "' -tf '" + TIME_FORMAT + "' "
 if calendarlist? and calendarlist.length > 0
     options = " -ic '" + calendarlist.join(',') + "' " + options
 
@@ -118,15 +118,15 @@ update: (output, domEl) ->
         if index > LINES - 1
             break
         split_line = line.trim().split(/ \$\$ | - /g)
-        if !split_line[3]?
+        if !split_line[2]?
             continue
-        split_start_end = split_line[1].split(' at ')
-        date = split_start_end[0]
-        time = split_start_end[1] + '-' + split_line[2].replace(/(\d{1,2}).+ at /, '$1/')
-        title = split_line[3]
+        split_start_meta = split_line[0].split(/ ## | at /g)
+        date = split_start_meta[1]
+        time = split_start_meta[2] + '-' + split_line[1].replace(/\d{4}\/\d{2}\/\d{2} |## |at /g, "")
+        title = split_line[2]
         display_str = [date, time, title]
 
-        diff = (new Date(split_line[0]) - today) / 86400000
+        diff = (new Date(split_start_meta[0]) - today) / 86400000
         switch Math.floor(diff)
             when 0
                 trclass = 'today'

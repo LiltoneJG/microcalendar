@@ -40,6 +40,30 @@ FONT_WEIGHT = 500
 FONTSIZE = 10
 LINE_HEIGHT = 10
 
+# Font and background colors
+THEME = 'dark'
+if THEME == 'dark'
+    FONTCOLOR = '#cccccc'
+    FONTCOLOR_TODAY = '#ff871f'
+    FONTCOLOR_TOMORROW = '#fae35f'
+    FONTCOLOR_DAYAFTERTOMORROW = '#4be34f'
+    FONTCOLOR_FUTURE = '#80d9fa'
+    BGCOLOR = 'rgba(25, 25, 25, 0.7)'
+else if THEME == 'middle'
+    FONTCOLOR = '#cccccc'
+    FONTCOLOR_TODAY = '#ff851b'
+    FONTCOLOR_TOMORROW = '#e0c41b'
+    FONTCOLOR_DAYAFTERTOMORROW = '#16cf1b'
+    FONTCOLOR_FUTURE = '#3cc0f1'
+    BGCOLOR = 'rgba(87, 87, 87, 0.7)'
+else if THEME == 'light'
+    FONTCOLOR = '#878787'
+    FONTCOLOR_TODAY = '#ff8011'
+    FONTCOLOR_TOMORROW = '#cdaf00'
+    FONTCOLOR_DAYAFTERTOMORROW = '#16cf1b'
+    FONTCOLOR_FUTURE = '#3cc0f1'
+    BGCOLOR = 'rgba(255, 255, 255, 0.7)'
+
 # Settings end
 ##############################
 
@@ -60,8 +84,8 @@ style: """
     font-family: #{FONT_FAMILY}
     font-weight: #{FONT_WEIGHT}
     line-height: #{LINE_HEIGHT}px
-    color: #ccc
-    background: rgba(25, 25, 25, 0.5)
+    color: #{FONTCOLOR}
+    background: #{BGCOLOR}
     #frame
         width: #{WIDTH_SUM-2*PADDING}px
         padding: #{PADDING}px
@@ -82,16 +106,16 @@ style: """
             width: #{WIDTH_SUM-WIDTH_DAY-WIDTH_TIME-2*PADDING-0.5*FONTSIZE}px
         .today
             td.date, td.time
-                color: #ff871f
+                color: #{FONTCOLOR_TODAY}
         .tomorrow
             td.date, td.time
-                color: #fae35f
+                color: #{FONTCOLOR_TOMORROW}
         .dayaftertomorrow
             td.date, td.time
-                color: #4be34f
+                color: #{FONTCOLOR_DAYAFTERTOMORROW}
         .future
             td.date, td.time
-                color: #80d9fa
+                color: #{FONTCOLOR_FUTURE}
 """
 
 render: -> """

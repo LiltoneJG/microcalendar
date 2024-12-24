@@ -1,20 +1,44 @@
 import { styled } from "uebersicht";
 import { getIcalBuddyCommand, parseEvent } from "./lib/icalBuddyUtil";
-import {
-    icalBuddyPath,
-    calendarList,
-    dateFormat,
-    timeFormat,
-    eventNum,
-    reverseOrder,
-    refreshFrequencyHour,
-    fontColor,
-    bgColor,
-    eventColorToday,
-    eventColorTomorrow,
-    eventColorDayAfterTomorrow,
-    eventColorFuture,
-} from "./settings";
+
+// ------------------------------
+// settings
+// ------------------------------
+
+// icalBuddy install path
+// ($ which icalBuddy)
+const icalBuddyPath = "/opt/homebrew/bin/icalBuddy";
+
+// Show only specific calendars
+// ($ icalBuddy calendars | grep '• ')
+// ex:
+//     const calendarList = [
+//         "calendar1",
+//         "calendar2",
+//         "calendar3",
+//     ];
+const calendarList = [];
+
+const dateFormat = "%d(%a)"; // 01(Mon)
+const timeFormat = "%H:%M"; // 13:00
+
+const eventNum = 5;
+const reverseOrder = true;
+
+const refreshFrequencyHour = 1;
+
+const fontColor = "#dddddd";
+const bgColor =
+    "linear-gradient(to top, rgba(25, 25, 25, 0.9) 0%, rgba(25, 25, 25, 0.5) 80%, rgba(25, 25, 25, 0) 100%)";
+
+const eventColorToday = "#ff871f";
+const eventColorTomorrow = "#fae35f";
+const eventColorDayAfterTomorrow = "#4be34f";
+const eventColorFuture = "#80d9fa";
+
+// ------------------------------
+// main
+// ------------------------------
 
 export const refreshFrequency = 3600000 * refreshFrequencyHour;
 export const command = getIcalBuddyCommand(icalBuddyPath, calendarList, dateFormat, timeFormat);

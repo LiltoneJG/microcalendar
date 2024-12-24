@@ -24,7 +24,7 @@ Tiny calendar widget for [Übersicht](http://tracesof.net/uebersicht/) that disp
 
 3. Place this widget at Übersicht widget folder:
     `/Users/<username>/Library/Application Support/Übersicht/widgets/`
-4. (Optional) Change settings in `settings.js`
+4. (Optional) Change settings in `index.jsx`
     - `icalBuddy` install path
     - Show only specific calendars
     - Date and time format

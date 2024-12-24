@@ -141,7 +141,7 @@ export const render = (res) => {
         }
 
         const resultTr = (
-            <tr className={tr_class}>
+            <tr className={tr_class} key={i}>
                 <td className="date">{date}</td>
                 <td className="time">{time}</td>
                 <td>{title}</td>
